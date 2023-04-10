@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        h3{
+            margin-top: 5%;
+            font-size: x-large;
+        }
+
+        p{
+            font-size: larger;
+            font-weight: bold;
+            line-height: 35px;
+        }
+
+        #main-div {
+            width: 300px;
+            height: 480px;
+            border: 1px solid black;
+            margin: auto;
+            text-align: center;
+            margin-top: 2%;
+            padding-top: 20px;
+        }
+
+        #employee-list, #details{
+            height:30px;
+            width:100px;
+            font-size: medium;
+        }
+
+        #employee-details {
+            width: 200px;
+            height: 130px;
+            border: 1px solid black;
+            margin: auto;
+            margin-top: 15px;
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        input{
+            width:200px;
+            line-height: 25px;
+            text-align: center;
+            font-size: medium;
+
+        }
+
+        #get-otp, #validate{
+            width:100px;
+            margin-top: 10px;
+            line-height: 20px;
+            font-size: medium;
+
+        }
+
+        button:hover{
+            cursor: pointer;
+        }
+    </style>
+
+<body>
+    <h3 style="text-align: center;">---Employee Details---</h3>
+    <div id="main-div">
+        <p id="p1">Select an employee :</p>
+        <select id="employee-list" name="employee">
+            <option value="Ramesh">Ramesh</option>
+            <option value="Suresh">Suresh</option>
+            <option value="Pratik">Pratik</option>
+            <option value="Deepak">Deepak</option>
+        </select>
+
+        <button id="details" onclick="get_details()">Get Details</button>
+
+        <div id="employee-details"></div><br>
+
+        <p>Enter your email :</p>
+        <input type="text" id="email"><br>
+        <button id="get-otp" onclick="valid_email()">Get OTP</button><br>
+
+        <p>Enter OTP :</p>
+        <input type="text" id="otp"><br>
+        <button id="validate" onclick="valid_otp()">Validate</button><br>
+        <p id="validation"></p>
+
+    </div>
+
+    <script>
+
+        //This function is to get JSON data with AJAX.
+        function get_details() {
+
+            var name = document.getElementById('employee-list').value;
+            var server = new XMLHttpRequest();
+            var result;
+
+            server.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var employee = JSON.parse(server.responseText);
+
+
+                    //comparing employee name in switch case and getting data from JSON file
+                    switch (name) {
+                        case "Ramesh":
+                            var result = "<b>Name: </b>" + name + "<br>" + "<b>ID: </b>" + employee.Ramesh.id + "<br>"
+                                + "<b>Age: </b>" + employee.Ramesh.age + "<br>" + "<b>Address: </b>"
+                                + employee.Ramesh.address + "<br>" + "<b>Designation: </b>" + employee.Ramesh.post;
+
+                            document.getElementById('employee-details').innerHTML = result;
+                            break;
+
+
+                        case "Suresh":
+                            var result = "<b>Name: </b>" + name + "<br>" + "<b>ID: </b>" + employee.Suresh.id + "<br>"
+                                + "<b>Age: </b>" + employee.Suresh.age + "<br>" + "<b>Address: </b>"
+                                + employee.Suresh.address + "<br>" + "<b>Designation: </b>" + employee.Suresh.post;
+
+                            document.getElementById('employee-details').innerHTML = result;
+                            break;
+
+
+                        case "Deepak":
+                            var result = "<b>Name: </b>" + name + "<br>" + "<b>ID: </b>" + employee.Deepak.id + "<br>"
+                                + "<b>Age: </b>" + employee.Deepak.age + "<br>" + "<b>Address: </b>"
+                                + employee.Deepak.address + "<br>" + "<b>Designation: </b>" + employee.Deepak.post;
+
+                            document.getElementById('employee-details').innerHTML = result;
+                            break;
+
+
+                        case "Pratik":
+                            var result = "<b>Name: </b>" + name + "<br>" + "<b>ID: </b>" + employee.Pratik.id + "<br>"
+                                + "<b>Age: </b>" + employee.Pratik.age + "<br>" + "<b>Address: </b>"
+                                + employee.Pratik.address + "<br>" + "<b>Designation: </b>" + employee.Pratik.post;
+
+                            document.getElementById('employee-details').innerHTML = result;
+                            break;
+                    }
+                }
+            }
+
+            server.open("GET", "employee.json", true);
+            server.send();
+
+        }
+
+
+        //This function is to validate email and generate otp
+        var otp;
+
+        function valid_email() {
+            var email = document.getElementById('email').value;
+            var regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            otp = Math.ceil(1000 + Math.random() * 10000);
+
+            if (email.match(regex)) {
+
+                alert("Your OTP is: "+otp);
+            }
+            else {
+                alert("Enter a valid email address!");
+            }
+
+        }
+
+        //This function is to validate OTP
+        function valid_otp(){
+            
+            var otp1=parseInt(document.getElementById('otp').value);
+            console.log(otp1);
+            console.log(otp);
+            
+
+            if(otp1==otp){
+                document.getElementById('validation').innerHTML= "<span style=color:green;>Validation Successful !</span>";
+            }
+            else{
+                document.getElementById('validation').innerHTML= "<span style=color:red;>Validation Failed !</span>";
+
+            }
+        }
+
+
+
+    </script>
+</body>

@@ -1,0 +1,30 @@
+{
+    "Ramesh": {
+        "name": "Ramesh",
+        "id": 2249,
+        "age": 27,
+        "address": "Pune",
+        "post": "Web Developer"
+    },
+    "Suresh": {
+        "name": "Suresh",
+        "id": 3178,
+        "age": 34,
+        "address": "Satara",
+        "post": "UI/UX Designer"
+    },
+    "Pratik": {
+        "name": "Pratik",
+        "id": 2245,
+        "age": 29,
+        "address": "Mumbai",
+        "post": "Content Writer"
+    },
+    "Deepak": {
+        "name": "Deepak",
+        "id": 1726,
+        "age": 23,
+        "address": "Pune",
+        "post": "Graphics Designer"
+    }
+}
